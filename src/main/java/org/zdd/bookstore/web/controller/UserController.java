@@ -47,6 +47,9 @@ public class UserController {
     @Value("${my.ip}")
     private String ip;
 
+    @Value("${server.port}")
+    private String port;
+
     private final String USERNAME_PASSWORD_NOT_MATCH = "用户名或密码错误";
 
     private final String USERNAME_CANNOT_NULL = "用户名不能为空";
@@ -185,7 +188,7 @@ public class UserController {
             User userNotActive = (User) bsResult.getData();
             try {
                 mailService.sendHtmlMail(user.getEmail(), "<dd书城>---用户激活---",
-                        "<html><body><a href='http://"+ip+"/user/active?activeCode=" + userNotActive.getCode() + "'>亲爱的" + user.getUsername() +
+                        "<html><body><a href='http://"+ip+":"+port+"/user/active?activeCode=" + userNotActive.getCode() + "'>亲爱的" + user.getUsername() +
                                 "，请您点击此链接前往激活</a></body></html>");
             } catch (Exception e) {
                 e.printStackTrace();
